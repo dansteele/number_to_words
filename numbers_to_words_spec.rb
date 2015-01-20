@@ -15,5 +15,11 @@ class NumberToWordsTest < MiniTest::Test
       16.to_words.must_equal("sixteen")
       19.to_words.must_equal("nineteen")
     end
+
+    it "should handle less than 100" do
+      30.to_words.must_equal("thirty")
+      45.to_words.must_equal("forty-five")
+      99.to_words.must_equal("ninety-nine")
+    end
   end
 end
