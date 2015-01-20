@@ -1,17 +1,8 @@
 module NumberToWords
   def to_words(number = self)
     number_array = number.to_s.chars.map(&:to_i)
-    puts number_array.inspect
-    methods = [:get_low_number, :get_tens_number, :get_hundreds_number]
+    methods = [:get_low_number, :get_tens_number, :get_hundreds_number, :get_thousands_number, :get_tens_thousands_number, :get_hundred_thousands_number]
     full_number = []
-
-    # number_array.each_with_index do |value, index|
-    #   puts "value is: #{value.inspect}"
-    #   number_value = self.send(methods[number_array.length-1-index],(value))
-    #   puts "Number value returned back: #{number_value}"
-    #   full_number << number_value
-    #   puts "#{full_number}"
-    # end
 
     number_array.reverse.each_with_index do |value, index|
       number_value = self.send(methods[index],(value))
@@ -68,32 +59,103 @@ module NumberToWords
     end
   end
 
-  def get_hundreds_number(arg)
-      case tens
+  def get_hundreds_number(hundreds)
+      case hundreds
     when 1
-      "one"
+      "one hundred "
     when 2
-      "twenty"
+      "two hundred "
     when 3
-      "thirty"
+      "three hundred "
     when 4
-      "forty"
+      "four hundred "
     when 5
-      "fifty"
+      "five hundred "
     when 6
-      "sixty"
+      "six hundred "
     when 7
-      "seventy"
+      "seven hundred "
     when 8
-      "eighty"
+      "eight hundred "
     when 9
-      "ninety"
+      "nine hundred "
     end
 
   end
 
-end
+  def get_thousands_number(thousands)
+    case thousands
+    when 0
+      "thousand "
+    when 1
+      "one thousand "
+    when 2
+      "two thousand "
+    when 3
+      "three thousand "
+    when 4
+      "four thousand "
+    when 5
+      "five thousand "
+    when 6
+      "six thousand "
+    when 7
+      "seven thousand "
+    when 8
+      "eight thousand "
+    when 9
+      "nine thousand "
+    end
+  end
 
+  def get_tens_thousands_number(tens_thousands)
+
+    case tens_thousands
+      when 1
+        "ten "
+      when 2
+        "twenty "
+      when 3
+        "thirty "
+      when 4
+        "fourty "
+      when 5
+        "fifty "
+      when 6
+        "sixty "
+      when 7
+        "seventy "
+      when 8
+        "eighty "
+      when 9
+        "ninety "
+    end
+  end
+
+  def get_hundred_thousands_number(hundred_thousands)
+
+    case hundred_thousands
+      when 1
+        "one hundred and "
+      when 2
+        "two hundred and "
+      when 3
+        "three hundred and "
+      when 4
+        "four hundred and "
+      when 5
+        "five hundred and "
+      when 6
+        "six hundred and "
+      when 7
+        "seven hundred and "
+      when 8
+        "eight hundred and "
+      when 9
+        "nine hundred and "
+      end
+    end
+  end
 
 class Fixnum
   include NumberToWords
