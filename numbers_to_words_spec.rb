@@ -15,7 +15,7 @@ class NumberToWordsTest < MiniTest::Test
     end
 
     it "should handle less than 100" do
-    # 30.to_words.must_equal("thirty")
+      30.to_words.must_equal("thirty")
       45.to_words.must_equal("forty five")
       99.to_words.must_equal("ninety nine")
     end
@@ -33,15 +33,20 @@ class NumberToWordsTest < MiniTest::Test
     end
 
     it "should handle less than 100,000" do
+      19999.to_words.must_equal("nineteen thousand nine hundred ninety nine")
+      17432.to_words.must_equal("seventeen thousand four hundred thirty two")
       54321.to_words.must_equal("fifty four thousand three hundred twenty one")
       34492.to_words.must_equal("thirty four thousand four hundred ninety two")
       28792.to_words.must_equal("twenty eight thousand seven hundred ninety two")
+      49000.to_words.must_equal("forty nine thousand")
     end
 
     it "should handle less than 100,000,000" do
       432676.to_words.must_equal("four hundred and thirty two thousand six hundred seventy six")
       874243.to_words.must_equal("eight hundred and seventy four thousand two hundred forty three")
       999999.to_words.must_equal("nine hundred and ninety nine thousand nine hundred ninety nine")
+      500001.to_words.must_equal("five hundred thousand and one")
+      400117.to_words.must_equal("four hundred thousand and seventeen")
     end
   end
 end
