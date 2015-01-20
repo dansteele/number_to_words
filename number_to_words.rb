@@ -1,57 +1,29 @@
 module NumberToWords
   def to_words(number = self)
-    if number == 0
-      return "zero"
-    elsif number < 20
-      return get_low_number number
-    else
-      return get_tens_number number
-    end
-
-  end
-
-  def get_tens_number(number)
     number_array = number.to_s.chars.map(&:to_i)
+    puts number_array.inspect
+    methods = [:get_low_number, :get_tens_number, :get_hundreds_number]
+    full_number = []
 
-    case number
-    when 30
-      return "thirty"
-    when (31..39)
-      return ("thirty-" << (get_low_number (number_array[1])))
-    when (40)
-      return "forty"
-    when (41..49)
-      return ("forty-" << (get_low_number (number_array[1])))
-    when (50)
-      return "forty"
-    when (51..59)
-      return ("fifty-" << (get_low_number (number_array[1])))
-    when (60)
-      return "sixty"
-    when (61..69)
-      return ("sixty-" << (get_low_number (number_array[1])))
-    when (70)
-      return "seventy"
-    when (70..79)
-      return ("seventy-" << (get_low_number (number_array[1])))
-    when (80)
-      return "eighty"
-    when (81..89)
-      return ("eighty-" << (get_low_number (number_array[1])))
-    when (80)
-      return "eighty"
-    when (81..89)
-      return ("eighty-" << (get_low_number (number_array[1])))
-    when (90)
-      return "ninety"
-    when (91..99)
-      return ("ninety-" << (get_low_number (number_array[1])))
+    # number_array.each_with_index do |value, index|
+    #   puts "value is: #{value.inspect}"
+    #   number_value = self.send(methods[number_array.length-1-index],(value))
+    #   puts "Number value returned back: #{number_value}"
+    #   full_number << number_value
+    #   puts "#{full_number}"
+    # end
+
+    number_array.reverse.each_with_index do |value, index|
+      number_value = self.send(methods[index],(value))
+      full_number << number_value
     end
-
+    returned_number = ""
+    full_number.reverse.each {|word| returned_number << word}
+    return returned_number
   end
 
   def get_low_number(number)
-        case number
+    case number
     when 1
       "one"
     when 2
@@ -70,31 +42,58 @@ module NumberToWords
       "eight"
     when 9
       "nine"
-    when 10
-      "ten"
-    when 11
-      "eleven"
-    when 12
-      "twelve"
-    when 13
-      "thirteen"
-    when 14
-      "fourteen"
-    when 15
-      "fifteen"
-    when 16
-      "sixteen"
-    when 17
-      "seventeen"
-    when 18
-      "eighteen"
-    when 19
-      "nineteen"
-    when 20
-      "twenty"
     end
   end
+
+  def get_tens_number(tens)
+  case tens
+    # when 1
+    #   "one"
+    when 2
+      "twenty "
+    when 3
+      "thirty "
+    when 4
+      "forty "
+    when 5
+      "fifty "
+    when 6
+      "sixty "
+    when 7
+      "seventy "
+    when 8
+      "eighty "
+    when 9
+      "ninety "
+    end
+  end
+
+  def get_hundreds_number(arg)
+      case tens
+    when 1
+      "one"
+    when 2
+      "twenty"
+    when 3
+      "thirty"
+    when 4
+      "forty"
+    when 5
+      "fifty"
+    when 6
+      "sixty"
+    when 7
+      "seventy"
+    when 8
+      "eighty"
+    when 9
+      "ninety"
+    end
+
+  end
+
 end
+
 
 class Fixnum
   include NumberToWords
