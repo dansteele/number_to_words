@@ -10,5 +10,10 @@ class NumberToWordsTest < MiniTest::Test
       11.to_words.must_equal("eleven")
       12.to_words.must_equal("twelve")
     end
+
+    it "should handle the teens" do
+      16.to_words.must_equal("sixteen")
+      19.to_words.must_equal("nineteen")
+    end
   end
 end
