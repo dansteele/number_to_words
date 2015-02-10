@@ -17,21 +17,13 @@ module NumberToWords
     #form the full string by adding the different parts together
     returned_string = ""
     full_number.reverse.each {|word| returned_string << word}
-
     returned_string = fix_edge_cases(returned_string)
 
     return returned_string
   end
 
-
-
-
-  def fix_edge_cases(number_string)
-    rstring = number_string
-    edge_array = number_string.split(" ")
-    if edge_array.include? "CHANGE"
+  def fix_teens(edge_array)
       index = edge_array.index("CHANGE")
-
       case edge_array[index+1]
         when "one"
           edge_array[index+1] = "eleven"
@@ -53,33 +45,48 @@ module NumberToWords
           edge_array[index+1] = "nineteen"
         end
         edge_array.delete_at(index)
+  end
 
+  def log_delete(edge_array)
+    to_delete = []
+    # log where there are "ands" next to each other
+    edge_array.each_with_index do |value, index|
+      if value == "and" && edge_array[index+1] == "and"
+        to_delete << index unless to_delete.include? (index)
+        to_delete << index + 1 #unless to_delete.include? (index + 1)
       end
+    end
+    to_delete
+  end
 
-      # log where there are ands next to each other
-      to_delete = []
-      edge_array.each_with_index do |value, index|
-        if value == "and" && edge_array[index+1] == "and"
-          to_delete << index unless to_delete.include? (index)
-          to_delete << index + 1 #unless to_delete.include? (index + 1)
-        end
+  def remove_extra_ands(edge_array, to_delete)
+    # check if there are ands to delete
+    unless to_delete.nil?
+      log = -1
+      to_delete.each_with_index do |index_to_delete, delete_value|
+        log +=1
+        edge_array.delete_at(index_to_delete- log) unless delete_value == to_delete.length-1
       end
+    end
+  end
 
-      # check if there are ands to delete
-      unless to_delete.nil?
-        log = -1
-        to_delete.each_with_index do |index_to_delete, delete_value|
-          log +=1
-          edge_array.delete_at(index_to_delete- log) unless delete_value == to_delete.length-1
-        end
-      end
+  def remove_trailing_ands(edge_array, to_delete)
+    #delete ands off the end if it is the last word
+    while edge_array[edge_array.length-1] == "and"
+      edge_array.delete_at(edge_array.length-1)
+    end
+  end
 
-      #delete ands off the end if it is the last word
-      while edge_array[edge_array.length-1] == "and"
-        edge_array.delete_at(edge_array.length-1)
-      end
-      rstring = edge_array.join(" ")
-      return rstring
+  def fix_edge_cases(number_string)
+    rstring = number_string
+    edge_array = number_string.split(" ")
+
+    fix_teens(edge_array) if edge_array.include? "CHANGE"
+    to_delete = log_delete(edge_array)
+    remove_extra_ands(edge_array, to_delete)
+    remove_trailing_ands(edge_array, to_delete)
+    rstring = edge_array.join(" ")
+    return rstring
   end
 
   def get_low_number(number)
