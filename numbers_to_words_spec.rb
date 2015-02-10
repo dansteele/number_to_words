@@ -4,7 +4,7 @@ require './number_to_words'
 class NumberToWordsTest < MiniTest::Test
   describe "to_words" do
     it "should handle individual numbers" do
-      1.to_words.must_equal("one"
+      1.to_words.must_equal("one")
       2.to_words.must_equal("two")
       3.to_words.must_equal("three")
     end
@@ -48,7 +48,7 @@ class NumberToWordsTest < MiniTest::Test
       874243.to_words.must_equal("eight hundred and seventy four thousand two hundred forty three")
       999999.to_words.must_equal("nine hundred and ninety nine thousand nine hundred ninety nine")
       500001.to_words.must_equal("five hundred thousand and one")
-      400117.to_words.must_equal("four hundred thousand one hundred seventeen")
     end
+
   end
 end

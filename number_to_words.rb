@@ -68,9 +68,9 @@ module NumberToWords
       # check if there are ands to delete
       unless to_delete.nil?
         log = -1
-        to_delete.each_with_index do |index_to_delete, dans_index|
+        to_delete.each_with_index do |index_to_delete, delete_value|
           log +=1
-          edge_array.delete_at(index_to_delete- log) unless dans_index == to_delete.length-1
+          edge_array.delete_at(index_to_delete- log) unless delete_value == to_delete.length-1
         end
       end
 
@@ -78,10 +78,7 @@ module NumberToWords
       while edge_array[edge_array.length-1] == "and"
         edge_array.delete_at(edge_array.length-1)
       end
-
-
       rstring = edge_array.join(" ")
-      puts rstring
       return rstring
   end
 
